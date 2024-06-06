@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,6 +13,7 @@ namespace BootCamp2024
     {
         static void Main(string[] args)
         {
+           
             Q26();
             Q27();
             Q28();
@@ -50,6 +51,9 @@ namespace BootCamp2024
             Q60();
             Q61();
             Q62();
+            Q63();
+            Q64();
+            Q65();
             Console.ReadKey();
         }
 
@@ -505,6 +509,13 @@ namespace BootCamp2024
             int numStr = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Input "+ numStr +" strings below :");
 
+            string[] strArray = new string[numStr];
+
+            for (int i = 0; i < numStr; i++)
+            {
+                strArray[i] = Console.ReadLine();
+            }
+
 
             /*
             string[] strArray = new string[numStr];
@@ -563,7 +574,7 @@ namespace BootCamp2024
                 Console.WriteLine(str);
             }
             */
-
+            /*
             string[] strArray = new string[numStr];
 
             for (int i = 0; i < numStr; i++)
@@ -580,7 +591,7 @@ namespace BootCamp2024
                 {
                     for (int k = 0; k < strArray[j].Length - 1; k++)
                     {
-                        if (strArray[j][k] > strArray[i][k])
+                        if (strArray[j][k] < strArray[i][k])
                         {
                             
                             var temp = strArray[j]; 
@@ -605,13 +616,40 @@ namespace BootCamp2024
                             //j = 0;
                             break;
                         }
-
-
-                       
-
                     }
                 }
             }
+            foreach (var str in strArray)
+            {
+                Console.WriteLine(str);
+            }
+            */
+
+
+
+            Console.WriteLine("After sorting the array appears like :");
+
+            for (int i = 0; i < numStr - 1; i++)
+            {
+                for (int j = 0; j < numStr - 1; j++) 
+                {
+                    int ShorterLen = strArray[j].Length < strArray[j + 1].Length ? strArray[j].Length  : strArray[j+1].Length;
+
+                    for (int k = 0; k < ShorterLen; k++)
+                    {
+                        if (strArray[j][k] > strArray[j + 1][k])
+                        {
+                            string temp = strArray[j];
+                            strArray[j] = strArray[j + 1];
+                            strArray[j + 1] = temp;
+                            break;
+                        }
+                        else if (strArray[j][k] < strArray[j + 1][k])
+                            break;
+                    }
+                }
+            }
+
             foreach (var str in strArray)
             {
                 Console.WriteLine(str);
@@ -628,11 +666,74 @@ namespace BootCamp2024
             Console.WriteLine("Input the string : ");
             string Str = Console.ReadLine();
             Console.WriteLine("Input the position to start extraction :");
-            int ind = Convert.ToInt32(Console.ReadLine());
+            int startPos = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Input the length of substring :");
             int len = Convert.ToInt32(Console.ReadLine());
+            int EndPos = startPos + len;
+            int count = 0;
+            string NewStr = "";
+
+            foreach (char c in Str) 
+            {
+                count += 1;
+                if (count >= startPos && count <= EndPos)
+                {
+                    NewStr += c;
+                }else if (count > EndPos) { break; }
+            }
+            Console.WriteLine("The substring retrieve from the string is : " + NewStr);
+
         }
 
+        //Q14 (Q63)  
+        static void Q63()
+        {
+            Console.WriteLine("\r\nWrite a C# Sharp program to check whether a given substring is present in the given string.\r\n");
+            Console.WriteLine("Input the string : ");
+            string Str = Console.ReadLine();
+            Console.WriteLine("Input the substring to search : ");
+            string SubStr = Console.ReadLine();
+            
+            Console.WriteLine(Str.Contains(SubStr) ? "The substring exists in the string": "The substring not exists in the string");
+
+        }
+
+        //Q15 (Q64)  
+        static void Q64()
+        {
+            Console.WriteLine("\r\nWrite a C# Sharp program to read a sentence and replace lowercase characters with uppercase and vice-versa.\r\n");
+            Console.WriteLine("Input the string : ");
+            string Str = Console.ReadLine();
+
+            char[] charArray = Str.ToCharArray();
+
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                charArray[i] = char.IsLower(Str[i]) ? char.ToUpper(Str[i]) : char.ToLower(Str[i]);
+            }
+            
+            Console.WriteLine("After conversion, the string is : " + charArray.ToString());
+        }
+
+        //Q16 (Q65)  
+        static void Q65()
+        {
+            Console.WriteLine("\r\nWrite a program in C# Sharp to check the username and password.\r\n");
+            Console.WriteLine("Input a username: ");
+            string SignUpUserName = Console.ReadLine();
+            Console.WriteLine("Input a password: ");
+            string SignUpPassword = Console.ReadLine();
+
+            Console.WriteLine("Input a username: ");
+            string LogInUserName = Console.ReadLine();
+            Console.WriteLine("Input a password: ");
+            string LogInPassword = Console.ReadLine();
+
+            if (SignUpUserName == LogInUserName && SignUpPassword == LogInPassword)
+            Console.WriteLine("Password entered successfully!");
+            else
+                Console.WriteLine("password or username incorrect");
+        }
 
         static void CheckTwoNumberIsEqual(int _num1, int _num2)
         {
